@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.3">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Sequence Jamdown&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;link href="https://fonts.googleapis.com/css2?family=Bungee&amp;family=Inter:wght@400;700&amp;display=swap" rel="stylesheet"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: white; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>h1 { font-family: 'Bungee', cursive; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body class="min-h-screen flex flex-col items-center justify-center p-6"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1 class="text-4xl mb-8 text-yellow-400 tracking-wider text-center"&gt;SEQUENCE JAMDOWN&lt;/h1&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-2xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="card rounded-3xl p-8 text-center shadow-2xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h2 class="text-xl text-blue-400 mb-2 uppercase tracking-widest"&gt;Me&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="my-score" class="text-7xl font-bold mb-6"&gt;0&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button onclick="updateScore('myWins', 1)" class="w-full bg-blue-600 hover:bg-blue-500 py-4 rounded-xl font-bold transition-transform active:scale-95"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>RECORD WIN</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="card rounded-3xl p-8 text-center shadow-2xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h2 class="text-xl text-pink-400 mb-2 uppercase tracking-widest"&gt;Jenn&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="jenn-score" class="text-7xl font-bold mb-6"&gt;0&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button onclick="updateScore('jennWins', 1)" class="w-full bg-pink-600 hover:bg-pink-500 py-4 rounded-xl font-bold transition-transform active:scale-95"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>RECORD WIN</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;button onclick="resetScores()" class="mt-12 text-gray-500 hover:text-white text-sm underline decoration-dotted"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>Reset Tournament</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script type="module"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>import { getDatabase, ref, onValue, set, runTransaction } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";</p>
+<p class="p2"><br></p>
+<p class="p1">// Import the functions you need from the SDKs you need</p>
+<p class="p1">import { initializeApp } from "firebase/app";</p>
+<p class="p1">import { getAnalytics } from "firebase/analytics";</p>
+<p class="p1">// TODO: Add SDKs for Firebase products that you want to use</p>
+<p class="p1">// https://firebase.google.com/docs/web/setup#available-libraries</p>
+<p class="p2"><br></p>
+<p class="p1">// Your web app's Firebase configuration</p>
+<p class="p1">// For Firebase JS SDK v7.20.0 and later, measurementId is optional</p>
+<p class="p1">const firebaseConfig = {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>apiKey: "AIzaSyAQlpPWGhcD6wDdL2BO2wYSn6CiPk3EA_8",</p>
+<p class="p1"><span class="Apple-converted-space">  </span>authDomain: "sequence-jamdown.firebaseapp.com",</p>
+<p class="p1"><span class="Apple-converted-space">  </span>databaseURL: "https://sequence-jamdown-default-rtdb.firebaseio.com",</p>
+<p class="p1"><span class="Apple-converted-space">  </span>projectId: "sequence-jamdown",</p>
+<p class="p1"><span class="Apple-converted-space">  </span>storageBucket: "sequence-jamdown.firebasestorage.app",</p>
+<p class="p1"><span class="Apple-converted-space">  </span>messagingSenderId: "129467136028",</p>
+<p class="p1"><span class="Apple-converted-space">  </span>appId: "1:129467136028:web:7b937abaea176e590e07d9",</p>
+<p class="p1"><span class="Apple-converted-space">  </span>measurementId: "G-F8V5SNPNQN"</p>
+<p class="p1">};</p>
+<p class="p2"><br></p>
+<p class="p1">// Initialize Firebase</p>
+<p class="p1">const app = initializeApp(firebaseConfig);</p>
+<p class="p1">const analytics = getAnalytics(app);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// 1. PASTE YOUR CONFIG HERE</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const firebaseConfig = {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>apiKey: "YOUR_API_KEY",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>authDomain: "YOUR_PROJECT.firebaseapp.com",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>databaseURL: "https://YOUR_PROJECT.firebaseio.com",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>projectId: "YOUR_PROJECT",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>storageBucket: "YOUR_PROJECT.appspot.com",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>messagingSenderId: "YOUR_ID",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>appId: "YOUR_APP_ID"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const app = initializeApp(firebaseConfig);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const db = getDatabase(app);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const scoreRef = ref(db, 'scores');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// 2. Listen for Live Changes</p>
+<p class="p1"><span class="Apple-converted-space">        </span>onValue(scoreRef, (snapshot) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const data = snapshot.val() || { myWins: 0, jennWins: 0 };</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('my-score').innerText = data.myWins;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('jenn-score').innerText = data.jennWins;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// 3. Update Function</p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.updateScore = (player, amount) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const playerRef = ref(db, `scores/${player}`);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>runTransaction(playerRef, (currentValue) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return (currentValue || 0) + amount;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.resetScores = () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if(confirm("Start a new tournament?")) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>set(scoreRef, { myWins: 0, jennWins: 0 });</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
