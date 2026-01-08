@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sequence Jamdown</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=UnifrakturMaguntia&family=Inter:wght@400;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;900&display=swap" rel="stylesheet">
     <style>
         body { 
             font-family: 'Inter', sans-serif; 
@@ -14,79 +14,71 @@
             min-height: 100vh;
         }
         
-        /* Playfair Display Headline */
+        .playfair { font-family: 'Playfair Display', serif; }
+
         .headline { 
-            font-family: 'Playfair Display', serif; 
             color: #1b4d3e; /* Royal Green */
             font-size: 3.5rem;
             letter-spacing: -0.02em;
         }
 
-        /* Blackletter Initials */
-        .monogram {
-            font-family: 'UnifrakturMaguntia', serif;
-            font-size: 5rem;
-            line-height: 1;
-            margin-bottom: 0.5rem;
-        }
-
         .score-card { 
             background: #0a0a0a;
             border: 1px solid #1a1a1a;
-            position: relative;
         }
 
-        /* SS Specific Accents (Royal Green) */
-        .ss-color { color: #22c55e; text-shadow: 0 0 15px rgba(34, 197, 94, 0.3); }
-        .btn-ss { background-color: #1b4d3e; color: white; }
-        .btn-ss:active { background-color: #22c55e; }
+        /* SS: Royal Green Theme */
+        .ss-theme { color: #1b4d3e; }
+        .btn-ss { background-color: #1b4d3e; color: #FAF9F6; }
+        .btn-ss:active { background-color: #2d7a62; }
 
-        /* JJJ Specific Accents (Burgundy/Wine) */
-        .jjj-color { color: #991b1b; text-shadow: 0 0 15px rgba(153, 27, 27, 0.3); }
-        .btn-jjj { background-color: #7f1d1d; color: white; }
-        .btn-jjj:active { background-color: #991b1b; }
+        /* JJJ: Burgundy Theme */
+        .jjj-theme { color: #7f1d1d; }
+        .btn-jjj { background-color: #7f1d1d; color: #FAF9F6; }
+        .btn-jjj:active { background-color: #b91c1c; }
 
         .score-text {
             font-weight: 900;
             font-size: 8rem;
             letter-spacing: -0.05em;
+            color: #FAF9F6;
         }
     </style>
 </head>
 <body class="flex flex-col items-center justify-center p-6">
 
     <div class="text-center mb-12">
-        <h1 class="headline italic">Sequence jamdown</h1>
+        <h1 class="playfair headline italic">Sequence Jamdown</h1>
         <p class="text-gray-600 tracking-[0.5em] font-bold text-[10px] uppercase mt-2">The Ultimate Sequence Rivalry</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-3xl">
         
         <div class="score-card rounded-2xl p-10 text-center shadow-2xl">
-            <div class="monogram ss-color">SS</div>
+            <div class="playfair text-6xl font-bold mb-2 ss-theme">SS</div>
             <div id="my-score" class="score-text mb-6">0</div>
-            <button onclick="updateScore('myWins', 1)" class="btn-ss w-full py-5 rounded-lg font-black uppercase tracking-widest text-sm transition-all active:scale-95">
+            <button onclick="updateScore('myWins', 1)" class="btn-ss w-full py-5 rounded-lg font-black uppercase tracking-widest text-sm transition-all active:scale-95 shadow-lg">
                 Record Win
             </button>
         </div>
 
         <div class="score-card rounded-2xl p-10 text-center shadow-2xl">
-            <div class="monogram jjj-color">JJJ</div>
+            <div class="playfair text-6xl font-bold mb-2 jjj-theme">JJJ</div>
             <div id="jenn-score" class="score-text mb-6">0</div>
-            <button onclick="updateScore('jennWins', 1)" class="btn-jjj w-full py-5 rounded-lg font-black uppercase tracking-widest text-sm transition-all active:scale-95">
+            <button onclick="updateScore('jjjWins', 1)" class="btn-jjj w-full py-5 rounded-lg font-black uppercase tracking-widest text-sm transition-all active:scale-95 shadow-lg">
                 Record Win
             </button>
         </div>
 
     </div>
 
-    <div class="mt-16 flex flex-col items-center gap-4">
+    <div class="mt-16 flex flex-col items-center gap-6">
         <div class="flex gap-10">
-             <button onclick="updateScore('myWins', -1)" class="text-[10px] text-gray-700 hover:text-green-800 transition-colors uppercase tracking-widest">- Adj SS</button>
-             <button onclick="updateScore('jennWins', -1)" class="text-[10px] text-gray-700 hover:text-red-900 transition-colors uppercase tracking-widest">- Adj JJJ</button>
+             <button onclick="updateScore('myWins', -1)" class="text-[10px] text-gray-700 hover:text-green-800 transition-colors uppercase tracking-widest font-bold underline decoration-1 underline-offset-4">Subtract SS</button>
+             <button onclick="updateScore('jjjWins', -1)" class="text-[10px] text-gray-700 hover:text-red-900 transition-colors uppercase tracking-widest font-bold underline decoration-1 underline-offset-4">Subtract JJJ</button>
         </div>
-        <button onclick="resetScores()" class="mt-4 text-gray-900 hover:text-gray-600 transition-colors text-[9px] uppercase tracking-[0.3em] font-bold">
-            Clear All History
+        <button onclick="resetScores()" class="mt-4 text-gray-900 hover:text-gray-600 transition-colors text-[9px] uppercase tracking-[0.3em] font-black border border-gray-900 px-4 py-2 rounded">
+            Reset Tournament History
         </button>
     </div>
 
@@ -94,7 +86,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getDatabase, ref, onValue, set, runTransaction } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-        // BE SURE TO PASTE YOUR ACTUAL CONFIG HERE!
+        // CONFIG PLACEHOLDER - Paste your actual keys here!
         const firebaseConfig = {
             apiKey: "AIzaSyAQlpPWGhcD6wDdL2BO2wYSn6CiPk3EA_8",
             authDomain: "sequence-jamdown.firebaseapp.com",
@@ -109,9 +101,9 @@
         const scoreRef = ref(db, 'scores');
 
         onValue(scoreRef, (snapshot) => {
-            const data = snapshot.val() || { myWins: 0, jennWins: 0 };
+            const data = snapshot.val() || { myWins: 0, jjjWins: 0 };
             document.getElementById('my-score').innerText = data.myWins;
-            document.getElementById('jenn-score').innerText = data.jennWins;
+            document.getElementById('jenn-score').innerText = data.jjjWins;
         });
 
         window.updateScore = (player, amount) => {
@@ -124,7 +116,7 @@
 
         window.resetScores = () => {
             if(confirm("Permanently reset tournament data?")) {
-                set(scoreRef, { myWins: 0, jennWins: 0 });
+                set(scoreRef, { myWins: 0, jjjWins: 0 });
             }
         };
     </script>
