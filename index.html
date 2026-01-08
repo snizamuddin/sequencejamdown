@@ -5,81 +5,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sequence Jamdown</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Inter:wght@400;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Inter:wght@400;900&display=swap" rel="stylesheet">
     <style>
         body { 
             font-family: 'Inter', sans-serif; 
-            background: radial-gradient(circle, #064e3b 0%, #022c22 100%); 
-            color: white; 
+            background-color: #000000; 
+            color: #FAF9F6; /* Off-white */
             min-height: 100vh;
         }
-        h1 { font-family: 'Bungee Inline', cursive; }
         
+        /* Blackletter Headline in Sentence case */
+        .headline { 
+            font-family: 'UnifrakturMaguntia', serif; 
+            color: #1b4d3e; /* Royal Green */
+            font-size: 5rem;
+            line-height: 1;
+        }
+
         .score-card { 
-            background: rgba(0, 0, 0, 0.3); 
-            border: 2px solid #fbbf24; /* Gold border */
-            box-shadow: 0 0 20px rgba(251, 191, 36, 0.2);
-            position: relative;
-            overflow: hidden;
+            background: #111111; /* Slightly lighter black */
+            border: 1px solid #2d2d2d;
+            transition: all 0.3s ease;
         }
 
-        /* Fun background suit icons */
-        .suit-bg {
-            position: absolute;
-            font-size: 8rem;
-            opacity: 0.05;
-            bottom: -20px;
-            right: -10px;
-            pointer-events: none;
+        /* Styling for the Off-White accents */
+        .off-white-text { color: #FAF9F6; }
+        
+        /* Card Accents: Using shades of forest and emerald for the buttons */
+        .btn-record {
+            background-color: #FAF9F6;
+            color: #000000;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            transition: all 0.2s;
         }
 
-        .btn-win {
-            background: linear-gradient(to bottom, #fbbf24, #d97706);
-            color: #000;
-            text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+        .btn-record:active { 
+            background-color: #1b4d3e; 
+            color: #FAF9F6;
+            transform: scale(0.98); 
         }
 
-        .btn-win:active { transform: scale(0.96); }
+        .divider {
+            height: 2px;
+            width: 40px;
+            background-color: #1b4d3e;
+            margin: 1rem 0;
+        }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center p-4">
+<body class="flex flex-col items-center justify-center p-6">
 
-    <div class="text-center mb-10">
-        <h1 class="text-5xl md:text-6xl text-yellow-400 mb-2 drop-shadow-lg">JAMDOWN</h1>
-        <p class="text-emerald-200 tracking-[0.3em] font-bold text-sm uppercase">The Ultimate Sequence Rivalry</p>
+    <div class="text-center mb-12">
+        <h1 class="headline mb-4">Sequence jamdown</h1>
+        <p class="text-gray-500 tracking-[0.4em] font-bold text-xs uppercase">The Ultimate Sequence Rivalry</p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-3xl">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 w-full max-w-2xl">
         
-        <div class="score-card rounded-[2rem] p-8 text-center flex flex-col items-center">
-            <span class="suit-bg">♠️</span>
-            <h2 class="text-2xl font-black text-white mb-1 uppercase italic">Challenger</h2>
-            <div class="w-16 h-1 bg-blue-500 mb-6 rounded-full"></div>
-            <div id="my-score" class="text-8xl font-black mb-6 text-white tracking-tighter">0</div>
-            <button onclick="updateScore('myWins', 1)" class="btn-win w-full py-5 rounded-2xl font-black text-xl shadow-xl uppercase">
-                Got a Sequence!
+        <div class="score-card rounded-xl p-10 text-center flex flex-col items-center">
+            <h2 class="text-3xl font-light tracking-tighter off-white-text">SS</h2>
+            <div class="divider"></div>
+            <div id="my-score" class="text-9xl font-black mb-8 off-white-text tracking-tighter">0</div>
+            <button onclick="updateScore('myWins', 1)" class="btn-record w-full py-4 rounded-sm uppercase text-sm">
+                Add Victory
             </button>
         </div>
 
-        <div class="score-card rounded-[2rem] p-8 text-center flex flex-col items-center">
-            <span class="suit-bg">♥️</span>
-            <h2 class="text-2xl font-black text-white mb-1 uppercase italic">Jenn</h2>
-            <div class="w-16 h-1 bg-pink-500 mb-6 rounded-full"></div>
-            <div id="jenn-score" class="text-8xl font-black mb-6 text-white tracking-tighter">0</div>
-            <button onclick="updateScore('jennWins', 1)" class="btn-win w-full py-5 rounded-2xl font-black text-xl shadow-xl uppercase">
-                Got a Sequence!
+        <div class="score-card rounded-xl p-10 text-center flex flex-col items-center">
+            <h2 class="text-3xl font-light tracking-tighter off-white-text">JJJ</h2>
+            <div class="divider"></div>
+            <div id="jenn-score" class="text-9xl font-black mb-8 off-white-text tracking-tighter">0</div>
+            <button onclick="updateScore('jennWins', 1)" class="btn-record w-full py-4 rounded-sm uppercase text-sm">
+                Add Victory
             </button>
         </div>
 
     </div>
 
-    <div class="mt-12 flex flex-col items-center gap-4">
-        <div class="flex gap-4">
-             <button onclick="updateScore('myWins', -1)" class="text-xs bg-gray-800 px-3 py-1 rounded text-gray-400">-1 Me</button>
-             <button onclick="updateScore('jennWins', -1)" class="text-xs bg-gray-800 px-3 py-1 rounded text-gray-400">-1 Jenn</button>
+    <div class="mt-16 flex flex-col items-center gap-6">
+        <div class="flex gap-8">
+             <button onclick="updateScore('myWins', -1)" class="text-[10px] text-gray-600 hover:text-white uppercase tracking-widest">- Adjust SS</button>
+             <button onclick="updateScore('jennWins', -1)" class="text-[10px] text-gray-600 hover:text-white uppercase tracking-widest">- Adjust JJJ</button>
         </div>
-        <button onclick="resetScores()" class="text-emerald-400/50 hover:text-emerald-400 transition-colors text-xs uppercase tracking-widest font-bold">
-            Reset Tournament
+        <button onclick="resetScores()" class="text-gray-800 hover:text-red-900 transition-colors text-[10px] uppercase tracking-[0.2em]">
+            Reset Tournament History
         </button>
     </div>
 
@@ -87,7 +97,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getDatabase, ref, onValue, set, runTransaction } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-        // IMPORTANT: PASTE YOUR FIREBASE CONFIG HERE
+        // PASTE YOUR CONFIG HERE
         const firebaseConfig = {
             apiKey: "AIzaSyAQlpPWGhcD6wDdL2BO2wYSn6CiPk3EA_8",
             authDomain: "sequence-jamdown.firebaseapp.com",
@@ -97,7 +107,6 @@
             messagingSenderId: "129467136028",
             appId: "1:129467136028:web:7b937abaea176e590e07d9"
         };
-
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
         const scoreRef = ref(db, 'scores');
@@ -112,12 +121,12 @@
             const playerRef = ref(db, `scores/${player}`);
             runTransaction(playerRef, (currentValue) => {
                 const newValue = (currentValue || 0) + amount;
-                return newValue < 0 ? 0 : newValue; // Don't allow negative scores
+                return newValue < 0 ? 0 : newValue;
             });
         };
 
         window.resetScores = () => {
-            if(confirm("This will clear all scores. Ready for a fresh start?")) {
+            if(confirm("Reset the jamdown?")) {
                 set(scoreRef, { myWins: 0, jennWins: 0 });
             }
         };
