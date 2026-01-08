@@ -5,91 +5,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sequence Jamdown</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Inter:wght@400;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=UnifrakturMaguntia&family=Inter:wght@400;900&display=swap" rel="stylesheet">
     <style>
         body { 
             font-family: 'Inter', sans-serif; 
             background-color: #000000; 
-            color: #FAF9F6; /* Off-white */
+            color: #FAF9F6; 
             min-height: 100vh;
         }
         
-        /* Blackletter Headline in Sentence case */
+        /* Playfair Display Headline */
         .headline { 
-            font-family: 'UnifrakturMaguntia', serif; 
+            font-family: 'Playfair Display', serif; 
             color: #1b4d3e; /* Royal Green */
+            font-size: 3.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        /* Blackletter Initials */
+        .monogram {
+            font-family: 'UnifrakturMaguntia', serif;
             font-size: 5rem;
             line-height: 1;
+            margin-bottom: 0.5rem;
         }
 
         .score-card { 
-            background: #111111; /* Slightly lighter black */
-            border: 1px solid #2d2d2d;
-            transition: all 0.3s ease;
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            position: relative;
         }
 
-        /* Styling for the Off-White accents */
-        .off-white-text { color: #FAF9F6; }
-        
-        /* Card Accents: Using shades of forest and emerald for the buttons */
-        .btn-record {
-            background-color: #FAF9F6;
-            color: #000000;
+        /* SS Specific Accents (Royal Green) */
+        .ss-color { color: #22c55e; text-shadow: 0 0 15px rgba(34, 197, 94, 0.3); }
+        .btn-ss { background-color: #1b4d3e; color: white; }
+        .btn-ss:active { background-color: #22c55e; }
+
+        /* JJJ Specific Accents (Burgundy/Wine) */
+        .jjj-color { color: #991b1b; text-shadow: 0 0 15px rgba(153, 27, 27, 0.3); }
+        .btn-jjj { background-color: #7f1d1d; color: white; }
+        .btn-jjj:active { background-color: #991b1b; }
+
+        .score-text {
             font-weight: 900;
-            letter-spacing: 0.1em;
-            transition: all 0.2s;
-        }
-
-        .btn-record:active { 
-            background-color: #1b4d3e; 
-            color: #FAF9F6;
-            transform: scale(0.98); 
-        }
-
-        .divider {
-            height: 2px;
-            width: 40px;
-            background-color: #1b4d3e;
-            margin: 1rem 0;
+            font-size: 8rem;
+            letter-spacing: -0.05em;
         }
     </style>
 </head>
 <body class="flex flex-col items-center justify-center p-6">
 
     <div class="text-center mb-12">
-        <h1 class="headline mb-4">Sequence jamdown</h1>
-        <p class="text-gray-500 tracking-[0.4em] font-bold text-xs uppercase">The Ultimate Sequence Rivalry</p>
+        <h1 class="headline italic">Sequence jamdown</h1>
+        <p class="text-gray-600 tracking-[0.5em] font-bold text-[10px] uppercase mt-2">The Ultimate Sequence Rivalry</p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 w-full max-w-2xl">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-3xl">
         
-        <div class="score-card rounded-xl p-10 text-center flex flex-col items-center">
-            <h2 class="text-3xl font-light tracking-tighter off-white-text">SS</h2>
-            <div class="divider"></div>
-            <div id="my-score" class="text-9xl font-black mb-8 off-white-text tracking-tighter">0</div>
-            <button onclick="updateScore('myWins', 1)" class="btn-record w-full py-4 rounded-sm uppercase text-sm">
-                Add Victory
+        <div class="score-card rounded-2xl p-10 text-center shadow-2xl">
+            <div class="monogram ss-color">SS</div>
+            <div id="my-score" class="score-text mb-6">0</div>
+            <button onclick="updateScore('myWins', 1)" class="btn-ss w-full py-5 rounded-lg font-black uppercase tracking-widest text-sm transition-all active:scale-95">
+                Record Win
             </button>
         </div>
 
-        <div class="score-card rounded-xl p-10 text-center flex flex-col items-center">
-            <h2 class="text-3xl font-light tracking-tighter off-white-text">JJJ</h2>
-            <div class="divider"></div>
-            <div id="jenn-score" class="text-9xl font-black mb-8 off-white-text tracking-tighter">0</div>
-            <button onclick="updateScore('jennWins', 1)" class="btn-record w-full py-4 rounded-sm uppercase text-sm">
-                Add Victory
+        <div class="score-card rounded-2xl p-10 text-center shadow-2xl">
+            <div class="monogram jjj-color">JJJ</div>
+            <div id="jenn-score" class="score-text mb-6">0</div>
+            <button onclick="updateScore('jennWins', 1)" class="btn-jjj w-full py-5 rounded-lg font-black uppercase tracking-widest text-sm transition-all active:scale-95">
+                Record Win
             </button>
         </div>
 
     </div>
 
-    <div class="mt-16 flex flex-col items-center gap-6">
-        <div class="flex gap-8">
-             <button onclick="updateScore('myWins', -1)" class="text-[10px] text-gray-600 hover:text-white uppercase tracking-widest">- Adjust SS</button>
-             <button onclick="updateScore('jennWins', -1)" class="text-[10px] text-gray-600 hover:text-white uppercase tracking-widest">- Adjust JJJ</button>
+    <div class="mt-16 flex flex-col items-center gap-4">
+        <div class="flex gap-10">
+             <button onclick="updateScore('myWins', -1)" class="text-[10px] text-gray-700 hover:text-green-800 transition-colors uppercase tracking-widest">- Adj SS</button>
+             <button onclick="updateScore('jennWins', -1)" class="text-[10px] text-gray-700 hover:text-red-900 transition-colors uppercase tracking-widest">- Adj JJJ</button>
         </div>
-        <button onclick="resetScores()" class="text-gray-800 hover:text-red-900 transition-colors text-[10px] uppercase tracking-[0.2em]">
-            Reset Tournament History
+        <button onclick="resetScores()" class="mt-4 text-gray-900 hover:text-gray-600 transition-colors text-[9px] uppercase tracking-[0.3em] font-bold">
+            Clear All History
         </button>
     </div>
 
@@ -97,7 +94,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getDatabase, ref, onValue, set, runTransaction } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-        // PASTE YOUR CONFIG HERE
+        // BE SURE TO PASTE YOUR ACTUAL CONFIG HERE!
         const firebaseConfig = {
             apiKey: "AIzaSyAQlpPWGhcD6wDdL2BO2wYSn6CiPk3EA_8",
             authDomain: "sequence-jamdown.firebaseapp.com",
@@ -126,7 +123,7 @@
         };
 
         window.resetScores = () => {
-            if(confirm("Reset the jamdown?")) {
+            if(confirm("Permanently reset tournament data?")) {
                 set(scoreRef, { myWins: 0, jennWins: 0 });
             }
         };
